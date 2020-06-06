@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Design Taco</title>
+</head>
+
+<body>
+    <h3>Designate your wrap</h3>
+    <h4>Wrap</h4>
+    <!-- request for "wrap" attribute -->
+    <div th:each="ingredient : ${wrap}">
+        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
+        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+        <!-- the value of each checkbox is the id of each ingredient -->
+        <span th:text="${ingredient.name}">INGREDIENT</span><br>
+        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
+    </div>
+    <br>
+
+    <!-- request for "protein" attribute -->
+    <h4>Protein</h4>
+    <div th:each="ingredient : ${protein}">
+        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
+        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+        <!-- the value of each checkbox is the id of each ingredient -->
+        <span th:text="${ingredient.name}">INGREDIENT</span><br>
+        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
+    </div>
+    <br>
+
+    <h4>Wrap</h4>
+    <!-- request for "cheese" attribute -->
+    <div th:each="ingredient : ${cheese}">
+        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
+        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+        <!-- the value of each checkbox is the id of each ingredient -->
+        <span th:text="${ingredient.name}">INGREDIENT</span><br>
+        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
+    </div>
+    <br>
+
+    <h4>Veggies</h4>
+    <!-- request for "veggies" attribute -->
+    <div th:each="ingredient : ${veggies}">
+        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
+        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+        <!-- the value of each checkbox is the id of each ingredient -->
+        <span th:text="${ingredient.name}">INGREDIENT</span><br>
+        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
+    </div>
+    <br>
+
+    <h4>Sause</h4>
+    <!-- request for "sause" attribute -->
+    <div th:each="ingredient : ${sause}">
+        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
+        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+        <!-- the value of each checkbox is the id of each ingredient -->
+        <span th:text="${ingredient.name}">INGREDIENT</span><br>
+        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
+    </div>
+    <br>
+</body>
+
+</html>
