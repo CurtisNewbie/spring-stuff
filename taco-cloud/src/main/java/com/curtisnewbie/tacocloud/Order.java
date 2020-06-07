@@ -1,5 +1,6 @@
 package com.curtisnewbie.tacocloud;
 
+import java.util.Date;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -30,6 +31,8 @@ public class Order {
 
     @Digits(integer = 3, fraction = 0, message = "Invalid Credit Card CCV")
     private String ccCVV;
+
+    private Date placedAt;
 
     public Order() {
     }
@@ -151,5 +154,19 @@ public class Order {
         return "Order [ccCVV=" + ccCVV + ", ccExpration=" + ccExpiration + ", ccNumber=" + ccNumber
                 + ", city=" + city + ", name=" + name + ", state=" + state + ", street=" + street
                 + ", zip=" + zip + "]";
+    }
+
+    /**
+     * @return the placedAt
+     */
+    public Date getPlacedAt() {
+        return placedAt;
+    }
+
+    /**
+     * @param placedAt the placedAt to set
+     */
+    public void setPlacedAt(Date placedAt) {
+        this.placedAt = placedAt;
     }
 }
