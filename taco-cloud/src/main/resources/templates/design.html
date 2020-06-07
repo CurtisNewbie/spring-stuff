@@ -6,61 +6,72 @@
 </head>
 
 <body>
-    <h3>Designate your wrap</h3>
-    <h4>Wrap</h4>
-    <!-- request for "wrap" attribute -->
-    <div th:each="ingredient : ${wrap}">
-        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
-        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
-        <!-- the value of each checkbox is the id of each ingredient -->
-        <span th:text="${ingredient.name}">INGREDIENT</span><br>
-        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
-    </div>
-    <br>
+    <h3>Design Your Taco!</h3>
+    <!-- this form submits a POST request, wherein an object is sent, this object is received as an attribute, see DesignTacoController. This "newTaco" is essentially the name of the Taco object. Notice that for each type of ingredients shown below, they all use the same name 'ingredients', which matches the property of a Taco object-->
+    <form method="POST" th:object="${newTaco}">
+        <div>
+            <h3>Designate your wrap!</h3>
+            <!-- request for "wrap" attribute -->
+            <div th:each="ingredient : ${wrap}">
+                <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
+                <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+                <!-- the value of each checkbox is the id of each ingredient -->
+                <span th:text="${ingredient.name}">INGREDIENT</span><br>
+                <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
+            </div>
+            <br>
+        </div>
 
-    <!-- request for "protein" attribute -->
-    <h4>Protein</h4>
-    <div th:each="ingredient : ${protein}">
-        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
-        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
-        <!-- the value of each checkbox is the id of each ingredient -->
-        <span th:text="${ingredient.name}">INGREDIENT</span><br>
-        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
-    </div>
-    <br>
+        <div>
+            <h3>Designate your protein!</h3>
+            <!-- request for "protein" attribute -->
+            <div th:each="ingredient : ${protein}">
+                <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+                <span th:text="${ingredient.name}">INGREDIENT</span><br>
+            </div>
+            <br>
+        </div>
 
-    <h4>Wrap</h4>
-    <!-- request for "cheese" attribute -->
-    <div th:each="ingredient : ${cheese}">
-        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
-        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
-        <!-- the value of each checkbox is the id of each ingredient -->
-        <span th:text="${ingredient.name}">INGREDIENT</span><br>
-        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
-    </div>
-    <br>
+        <div>
+            <h4>Designate your cheese!</h4>
+            <!-- request for "cheese" attribute -->
+            <div th:each="ingredient : ${cheese}">
+                <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+                <span th:text="${ingredient.name}">INGREDIENT</span><br>
+            </div>
+            <br>
+        </div>
 
-    <h4>Veggies</h4>
-    <!-- request for "veggies" attribute -->
-    <div th:each="ingredient : ${veggies}">
-        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
-        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
-        <!-- the value of each checkbox is the id of each ingredient -->
-        <span th:text="${ingredient.name}">INGREDIENT</span><br>
-        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
-    </div>
-    <br>
+        <div>
+            <h4>Designate your veggies</h4>
+            <!-- request for "veggies" attribute -->
+            <div th:each="ingredient : ${veggies}">
+                <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+                <span th:text="${ingredient.name}">INGREDIENT</span><br>
+            </div>
+            <br>
+        </div>
 
-    <h4>Sause</h4>
-    <!-- request for "sause" attribute -->
-    <div th:each="ingredient : ${sause}">
-        <!-- foreach in ${wrap} attribute, where each is named "ingredient" -->
-        <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
-        <!-- the value of each checkbox is the id of each ingredient -->
-        <span th:text="${ingredient.name}">INGREDIENT</span><br>
-        <!-- and the value of each span, is the name of each ingredient, "INGREDIENT" will be replaced -->
-    </div>
-    <br>
+        <div>
+            <h4>Designate your sause</h4>
+            <!-- request for "sause" attribute -->
+            <div th:each="ingredient : ${sause}">
+                <input type="checkbox" name="ingredients" th:value="${ingredient.id}" />
+                <span th:text="${ingredient.name}">INGREDIENT</span><br>
+            </div>
+            <br>
+        </div>
+
+        <div>
+            <h3>Name your taco!</h3>
+            <div>
+                <!-- th:field means that the value of this input is set to the field "name" of object "newTaco"-->
+                <input type="text" name="" id="" th:field="*{name}" />
+                <br>
+                <button type="submit">Submit your taco</button>
+            </div>
+        </div>
+    </form>
 </body>
 
 </html>

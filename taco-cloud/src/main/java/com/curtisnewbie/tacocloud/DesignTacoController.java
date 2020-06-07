@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -38,8 +39,17 @@ public class DesignTacoController {
             // add ingredients as attributes by type
             model.addAttribute(t.toString().toLowerCase(), filterByType(ingredients, t));
         }
-        // model.addAttribute("design", new Taco()); // TODO: not implmeneted yet
+        model.addAttribute("newTaco", new Taco()); // create a new Taco object, this object is then
+                                                   // updated and sent in design view via a form
         return "design"; // go to design.html view ( http://localhost:8080/design )
+    }
+
+    @PostMapping
+    public String processDesign(Taco newTaco) {
+        // this will be implemented in chapter 3
+        log.info("processing design: " + newTaco);
+        return "redirect:/orders/current"; // redirect to orders/current, which is the
+                                           // OrderController
     }
 
     /**
