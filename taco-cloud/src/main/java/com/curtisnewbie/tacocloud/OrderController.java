@@ -1,9 +1,11 @@
 package com.curtisnewbie.tacocloud;
 
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +22,14 @@ public class OrderController {
         return "orderForm"; // go to orderForm.html template
     }
 
+    // @Valid, means using the declared annotations to validate a bean, and an Errors object is
+    // injected for validation result
     @PostMapping
-    public String processOrder(Order order) {
+    public String processOrder(@Valid Order order, Errors errors) {
+        if (errors.hasErrors()) {
+            return "orderForm"; // if bean validation fails, redirect to orderForm.html
+        }
+
         log.info("Order submitted: " + order.toString());
         return "redirect:/";
     }
