@@ -7,6 +7,8 @@ import javax.validation.constraints.Size;
 
 public class Taco {
 
+    private Long id;
+
     @NotNull
     @Size(min = 1, message = "Nmae must be at least 5 characters long")
     private String name;
@@ -64,5 +66,19 @@ public class Taco {
      */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 }

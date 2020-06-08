@@ -26,8 +26,9 @@ public class JdbcTacoRepository implements TacoRepository {
         // this operation consists of two steps:
         // 1. persist taco, get its id
         long tacoId = persistTaco(taco);
+        taco.setId(tacoId);
         // 2. connect newly created taco with its ingredients
-        saveIngredientsToTaco(tacoId, taco);
+        saveIngredientsToTaco(taco);
         return taco;
     }
 
@@ -46,10 +47,10 @@ public class JdbcTacoRepository implements TacoRepository {
         return keyHolder.getKey().longValue();
     }
 
-    private void saveIngredientsToTaco(long tacoId, Taco taco) {
+    private void saveIngredientsToTaco(Taco taco) {
         List<Object[]> params = new ArrayList<>();
         taco.getIngredients().forEach(ingre -> { // batch processing
-            params.add(new Object[] {tacoId, ingre.getId()});
+            params.add(new Object[] {taco.getId(), ingre.getId()});
         });
         jdbc.update("INSERT INTO Taco_Ingredient (taco, ingredient) VALUES (?, ?)", params);
     }

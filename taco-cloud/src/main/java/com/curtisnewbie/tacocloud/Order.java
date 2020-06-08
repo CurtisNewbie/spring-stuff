@@ -10,6 +10,8 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 
 public class Order {
 
+    private Long id;
+
     @NotBlank(message = "Name is required")
     private String name;
 
@@ -190,5 +192,19 @@ public class Order {
 
     public void addTaco(Taco taco) {
         this.tacos.add(taco);
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 }
