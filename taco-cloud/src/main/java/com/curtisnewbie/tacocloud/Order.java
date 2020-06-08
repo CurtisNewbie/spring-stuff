@@ -1,6 +1,8 @@
 package com.curtisnewbie.tacocloud;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -33,6 +35,8 @@ public class Order {
     private String ccCVV;
 
     private Date placedAt;
+
+    private List<Taco> tacos = new ArrayList<>();
 
     public Order() {
     }
@@ -168,5 +172,23 @@ public class Order {
      */
     public void setPlacedAt(Date placedAt) {
         this.placedAt = placedAt;
+    }
+
+    /**
+     * @return the tacos
+     */
+    public List<Taco> getTacos() {
+        return tacos;
+    }
+
+    /**
+     * @param tacos the tacos to set
+     */
+    public void setTacos(List<Taco> tacos) {
+        this.tacos = tacos;
+    }
+
+    public void addTaco(Taco taco) {
+        this.tacos.add(taco);
     }
 }
