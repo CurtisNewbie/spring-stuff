@@ -1,15 +1,26 @@
 package com.curtisnewbie.tacocloud;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class Ingredient {
 
+    @Id
     @NotNull
-    private final String id;
+    private String id;
+
     @NotNull
-    private final String name;
+    private String name;
+
     @NotNull
-    private final Type type;
+    private Type type;
+
+    Ingredient() {
+    }
 
     Ingredient(String id, String name, Type t) {
         this.id = id;

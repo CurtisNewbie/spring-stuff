@@ -54,6 +54,7 @@ public class DesignTacoController {
         // added to this model is reflected or "accessiable" on the view
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(ingredient -> ingredients.add(ingredient));
+        System.out.println(ingredients);
 
         Type[] types = Ingredient.Type.values();
         for (Type t : types) {

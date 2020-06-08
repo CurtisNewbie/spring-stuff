@@ -1,15 +1,26 @@
 package com.curtisnewbie.tacocloud;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
-public class Order {
+@Entity
+@Table(name = "TacoOrder")
+public class Order implements Serializable {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     @NotBlank(message = "Name is required")
@@ -38,9 +49,15 @@ public class Order {
 
     private Date placedAt;
 
+    @ManyToMany(targetEntity = Taco.class)
     private List<Taco> tacos = new ArrayList<>();
 
     public Order() {
+    }
+
+    @PrePersist
+    private void placedAt() {
+        this.placedAt = new Date();
     }
 
     /**
@@ -167,13 +184,6 @@ public class Order {
      */
     public Date getPlacedAt() {
         return placedAt;
-    }
-
-    /**
-     * @param placedAt the placedAt to set
-     */
-    public void setPlacedAt(Date placedAt) {
-        this.placedAt = placedAt;
     }
 
     /**

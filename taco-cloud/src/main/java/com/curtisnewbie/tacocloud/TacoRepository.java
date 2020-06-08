@@ -1,7 +1,10 @@
 package com.curtisnewbie.tacocloud;
 
-public interface TacoRepository {
+import org.springframework.data.repository.CrudRepository;
 
-    Taco save(Taco taco);
+// <T,V>, T is the Entity, V is the primaryKey
+public interface TacoRepository extends CrudRepository<Taco, Long> {
+
+    // Taco save(Taco taco);
 
 }

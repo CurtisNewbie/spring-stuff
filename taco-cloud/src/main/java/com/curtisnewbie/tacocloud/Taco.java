@@ -2,23 +2,39 @@ package com.curtisnewbie.tacocloud;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Table(name = "Taco")
+@Entity
 public class Taco {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
     @NotNull
     @Size(min = 1, message = "Nmae must be at least 5 characters long")
     private String name;
 
-    @Size(min = 1, message = "You must select at least one ingredient")
-    private List<String> ingredients;
-
     private Date createdAt;
 
+    @ManyToMany(targetEntity = Ingredient.class)
+    @Size(min = 1, message = "You must select at least one ingredient")
+    private List<Ingredient> ingredients;
+
     public Taco() {
+    }
+
+    @PrePersist
+    private void createdAt() {
+        this.createdAt = new Date();
     }
 
     /**
@@ -38,14 +54,14 @@ public class Taco {
     /**
      * @return the ingredients
      */
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
     /**
      * @param ingredients the ingredients to set
      */
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -59,13 +75,6 @@ public class Taco {
      */
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * @param createdAt the createdAt to set
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
