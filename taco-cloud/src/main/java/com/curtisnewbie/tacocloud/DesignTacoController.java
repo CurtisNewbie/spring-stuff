@@ -43,7 +43,7 @@ public class DesignTacoController {
     }
 
     // this model is not declared as Session Attribute, so it's not shared among the requests
-    @ModelAttribute("taco")
+    @ModelAttribute("newTaco")
     public Taco taco() {
         return new Taco();
     }
@@ -60,8 +60,6 @@ public class DesignTacoController {
             // add ingredients as attributes by type
             model.addAttribute(t.toString().toLowerCase(), filterByType(ingredients, t));
         }
-        model.addAttribute("newTaco", new Taco()); // create a new Taco object, this object is then
-                                                   // updated and sent in design view via a form
         return "design"; // go to design.html view ( http://localhost:8080/design )
     }
 
@@ -69,10 +67,10 @@ public class DesignTacoController {
     // to the view based on the @ModelAttribute method above. Differently, newTaco is from the
     // client, rather than exposed.
     @PostMapping
-    public String processDesign(@Valid Taco newTaco, Errors errors, @ModelAttribute Order order) {
+    public String processDesign(@Valid Taco newTaco, Errors errors,
+            @ModelAttribute(binding = false) Order order) {
         // this will be implemented in chapter 3
         log.info("processing design: " + newTaco);
-
         if (errors.hasErrors()) {
             // if there is error while validating beans, redirect to design.html
             return "design";

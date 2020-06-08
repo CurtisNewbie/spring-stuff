@@ -8,7 +8,7 @@
 <body>
     <h3>Design Your Taco!</h3>
     <!-- this form submits a POST request, wherein an object is sent, this object is received as an attribute, see DesignTacoController. This "newTaco" is essentially the name of the Taco object. Notice that for each type of ingredients shown below, they all use the same name 'ingredients', which matches the property of a Taco object-->
-    <form method="POST" th:object="${newTaco}">
+    <form method="POST" th:action="@{/design}" th:object="${newTaco}">
         <div>
             <h3>Designate your wrap!</h3>
             <!-- request for "wrap" attribute -->

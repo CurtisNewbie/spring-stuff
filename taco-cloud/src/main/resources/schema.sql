@@ -19,12 +19,12 @@ ALTER TABLE Taco_Ingredient ADD FOREIGN KEY (taco) REFERENCES Taco(id);
 ALTER TABLE Taco_Ingredient ADD FOREIGN KEY (ingredient) REFERENCES Ingredient(id);
 
 CREATE TABLE IF NOT EXISTS TacoOrder(
-    id identity,
-    deliveryName VARCHAR(50) NOT NULL,
-    deliveryStreet VARCHAR(50) NOT NULL,
-    deliveryCity VARCHAR(50) NOT NULL,
-    deliveryState VARCHAR(2) NOT NULL,
-    deliveryZip VARCHAR(10) NOT NULL,
+    id IDENTITY,
+    name VARCHAR(50) NOT NULL,
+    street VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    state VARCHAR(2) NOT NULL,
+    zip VARCHAR(10) NOT NULL,
     ccNumber VARCHAR(16) NOT NULL,
     ccExpiration VARCHAR(5) NOT NULL,
     ccCVV VARCHAR(3) NOT NULL,

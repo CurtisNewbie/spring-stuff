@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JdbcOrderRepository implements OrderRepository {
 
+    private static final Logger log = LoggerFactory.getLogger(JdbcOrderRepository.class);
     // SimpleJdbcInsert further simplifies Insert operation by taking a Map of param
     private SimpleJdbcInsert orderInserter;
     private SimpleJdbcInsert orderTacoInserter;
@@ -31,6 +34,7 @@ public class JdbcOrderRepository implements OrderRepository {
         long orderId = persistOrder(order);
         order.setId(orderId);
         saveTacosToOrder(order);
+        log.info("processed Order: " + order);
         return order;
     }
 

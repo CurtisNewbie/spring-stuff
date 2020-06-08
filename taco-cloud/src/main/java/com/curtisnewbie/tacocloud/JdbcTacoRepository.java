@@ -1,10 +1,8 @@
 package com.curtisnewbie.tacocloud;
 
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
@@ -37,10 +35,11 @@ public class JdbcTacoRepository implements TacoRepository {
         taco.setCreatedAt(new Date());
         // PreparedStatementCreatorFactory is a helper class used to create multiple PSC with
         // different param
-        PreparedStatementCreator psc = new PreparedStatementCreatorFactory(
-                "INSERT INTO Taco (name, createdAt) VALUES (?, ?)", Types.VARCHAR, Types.DATE)
-                        .newPreparedStatementCreator(
-                                Arrays.asList(taco.getName(), taco.getCreatedAt()));
+        PreparedStatementCreatorFactory pscf = new PreparedStatementCreatorFactory(
+                "INSERT INTO Taco (name, createdAt) VALUES (?, ?)", Types.VARCHAR, Types.DATE);
+        pscf.setReturnGeneratedKeys(true); // must enabled, else return false
+        PreparedStatementCreator psc = pscf
+                .newPreparedStatementCreator(Arrays.asList(taco.getName(), taco.getCreatedAt()));
         // create a key holder to get the id of this newly created Taco
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbc.update(psc, keyHolder);
@@ -48,11 +47,10 @@ public class JdbcTacoRepository implements TacoRepository {
     }
 
     private void saveIngredientsToTaco(Taco taco) {
-        List<Object[]> params = new ArrayList<>();
-        taco.getIngredients().forEach(ingre -> { // batch processing
-            params.add(new Object[] {taco.getId(), ingre.getId()});
+        taco.getIngredients().forEach(ingre -> {
+            jdbc.update("INSERT INTO Taco_Ingredient (taco, ingredient) VALUES (?, ?)",
+                    new Object[] {taco.getId(), ingre});
         });
-        jdbc.update("INSERT INTO Taco_Ingredient (taco, ingredient) VALUES (?, ?)", params);
     }
 
 }
