@@ -1,8 +1,6 @@
 package com.curtisnewbie.tacocloud;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
