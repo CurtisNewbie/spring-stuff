@@ -24,7 +24,8 @@ public class TacoCloudAppliaction {
     @Bean
     public CommandLineRunner commandLineRunner(IngredientRepository repo) {
         return args -> {
-            // user for Spring security
+            // user for Spring security, this only works for jdbcAuthentication, not
+            // ldapAuthentication
             int row = jdbc.update(
                     "INSERT INTO User (name, password, enabled) VALUES ('apple', 'juice', TRUE)");
             row += jdbc.update("INSERT INTO Authority (name, auth) VALUES ('apple', 'USER_ROLE')");
