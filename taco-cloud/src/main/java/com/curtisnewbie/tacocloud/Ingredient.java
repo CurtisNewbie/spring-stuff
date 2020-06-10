@@ -50,4 +50,15 @@ public class Ingredient {
     public Type getType() {
         return type;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+
+    @Override
+    public String toString() {
+        return "Ingredient [id=" + id + ", name=" + name + ", type=" + type + "]";
+    }
 }

@@ -28,21 +28,23 @@ public class DesignTacoController {
     private final IngredientRepository ingredientRepo;
     private final TacoRepository tacoRepository;
 
-    public DesignTacoController(IngredientRepository ingredientRepo,
-            TacoRepository tacoRepository) {
+    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository tacoRepository) {
         this.ingredientRepo = ingredientRepo;
         this.tacoRepository = tacoRepository;
     }
 
-    // spesify the order attribute as a model for the view, this method only tells what a "order"
-    // attribute is, note that this attribute is in session scope, so can be shared among requests
+    // spesify the order attribute as a model for the view, this method only tells
+    // what a "order"
+    // attribute is, note that this attribute is in session scope, so can be shared
+    // among requests
     // of a session.
     @ModelAttribute("order")
     public Order order() {
         return new Order();
     }
 
-    // this model is not declared as Session Attribute, so it's not shared among the requests
+    // this model is not declared as Session Attribute, so it's not shared among the
+    // requests
     @ModelAttribute("newTaco")
     public Taco taco() {
         return new Taco();
@@ -54,7 +56,7 @@ public class DesignTacoController {
         // added to this model is reflected or "accessiable" on the view
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(ingredient -> ingredients.add(ingredient));
-        System.out.println(ingredients);
+        log.info("Fetched: {}", ingredients);
 
         Type[] types = Ingredient.Type.values();
         for (Type t : types) {
@@ -64,13 +66,13 @@ public class DesignTacoController {
         return "design"; // go to design.html view ( http://localhost:8080/design )
     }
 
-    // here, @ModelAttribute is again used on order because this method will expose this attribute
-    // to the view based on the @ModelAttribute method above. Differently, newTaco is from the
+    // here, @ModelAttribute is again used on order because this method will expose
+    // this attribute
+    // to the view based on the @ModelAttribute method above. Differently, newTaco
+    // is from the
     // client, rather than exposed.
     @PostMapping
-    public String processDesign(@Valid Taco newTaco, Errors errors,
-            @ModelAttribute(binding = false) Order order) {
-        // this will be implemented in chapter 3
+    public String processDesign(@Valid Taco newTaco, Errors errors, @ModelAttribute(binding = false) Order order) {
         log.info("processing design: " + newTaco);
         if (errors.hasErrors()) {
             // if there is error while validating beans, redirect to design.html
@@ -91,7 +93,6 @@ public class DesignTacoController {
      * @return
      */
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-        return ingredients.stream().filter(v -> v.getType().equals(type))
-                .collect(Collectors.toList());
+        return ingredients.stream().filter(v -> v.getType().equals(type)).collect(Collectors.toList());
     }
 }
