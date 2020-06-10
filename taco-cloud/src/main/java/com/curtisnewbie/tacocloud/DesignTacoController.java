@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import com.curtisnewbie.tacocloud.Ingredient.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -28,7 +29,8 @@ public class DesignTacoController {
     private final IngredientRepository ingredientRepo;
     private final TacoRepository tacoRepository;
 
-    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository tacoRepository) {
+    public DesignTacoController(IngredientRepository ingredientRepo,
+            TacoRepository tacoRepository) {
         this.ingredientRepo = ingredientRepo;
         this.tacoRepository = tacoRepository;
     }
@@ -72,12 +74,14 @@ public class DesignTacoController {
     // is from the
     // client, rather than exposed.
     @PostMapping
-    public String processDesign(@Valid Taco newTaco, Errors errors, @ModelAttribute(binding = false) Order order) {
-        log.info("processing design: " + newTaco);
+    public String processDesign(@Valid Taco newTaco, Errors errors,
+            @ModelAttribute(binding = false) Order order, @AuthenticationPrincipal User user) {
         if (errors.hasErrors()) {
+            log.error("Taco Design Invalid {}", newTaco.toString());
             // if there is error while validating beans, redirect to design.html
             return "design";
         }
+        log.info("Processing design: {}\nDesign belongs to {}", newTaco, user.toString());
         Taco saved = tacoRepository.save(newTaco);
         // this order is in the session, so adding this taco is reflected in the view
         order.addTaco(saved);
@@ -93,6 +97,7 @@ public class DesignTacoController {
      * @return
      */
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-        return ingredients.stream().filter(v -> v.getType().equals(type)).collect(Collectors.toList());
+        return ingredients.stream().filter(v -> v.getType().equals(type))
+                .collect(Collectors.toList());
     }
 }
