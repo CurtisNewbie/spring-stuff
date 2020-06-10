@@ -19,6 +19,8 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 @Table(name = "TacoOrder")
 public class Order implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue
     private Long id;

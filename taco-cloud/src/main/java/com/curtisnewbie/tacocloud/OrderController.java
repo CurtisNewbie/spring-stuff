@@ -27,8 +27,7 @@ public class OrderController {
 
     @GetMapping("/current")
     public String orderForm(Model model) {
-        // model.addAttribute("order", new Order()); // nolonger needed, because of @ModelAttribute
-        // and @SessionAttributes("order")
+        log.info("Navigating to orderForm.html");
         return "orderForm"; // go to orderForm.html template
     }
 
@@ -36,14 +35,13 @@ public class OrderController {
     // injected for validation result
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors, SessionStatus session) {
+        log.info("Processing Order: {}", order.toString());
         if (errors.hasErrors()) {
             return "orderForm"; // if bean validation fails, redirect to orderForm.html
         }
-        // persist the order
         orderRepo.save(order);
         // this is the end of the session, this also means that all sessionAttributes are dumped.
         session.setComplete();
-        // log.info("Order submitted: " + order.toString());
         return "redirect:/";
     }
 }
