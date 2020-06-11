@@ -1,0 +1,45 @@
+# To activate one or more profiles, do it like this: 
+#   "java -jar target/taco-cloud-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod" 
+# Instead of having multiple profiles in one application.yml, we can have multiple .yml file, 
+# where each represents a profile. 
+# e.g., application-test.yml, application-prod.yml, etc.
+server: # not included in any profile, default config 
+  port: 8444
+
+---
+
+# configuration for "prod" profile
+server:
+  port: 8080 # if port is set to 0, spring will choose one that is available.
+spring: 
+  # jpa:
+    # hibernate: 
+      # ddl-auto: create
+  profiles: prod
+  datasource: 
+    url: jdbc:mysql://localhost:3306/tacocloud
+    username: tacodb
+    password: tacopw
+    # driver-class-name: com.mysql.jdbc.Driver # optional 
+    # schema:  # optional, since these scripts are scanned automatically
+    # - schema.sql 
+    # data:
+    # - data.sql
+    # jndi-name: java:/comp/env/jdbc/tacoCloudDs # Use JDNI, this will overrides all config above 
+# logging:
+  # level:
+    # root: WARN
+    # org.springframework.security: DEBUG
+    # path: /var/logs  
+    # file: tacocloud.log # write to specific file 
+
+--- 
+# default profile 
+server:
+  port: 8443 
+spring: 
+  profiles: default 
+  datasource: 
+    url: jdbc:h2:mem:dev_tacocloud
+    username: tacodb
+    password: tacopw
