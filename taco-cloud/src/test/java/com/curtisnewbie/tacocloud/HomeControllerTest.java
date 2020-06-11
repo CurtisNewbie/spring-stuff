@@ -3,14 +3,18 @@ package com.curtisnewbie.tacocloud;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-// @SpringBootTest // this tests the MVC, using @SpringBootTest is not enough
-@WebMvcTest(HomeController.class) // test the controller
+@SpringBootTest
+@AutoConfigureMockMvc // note that @WebMvcTest only init the web layer, we use also need
+						// persistence-related beans
+// @WebMvcTest(HomeController.class) // test the controller
 class HomeControllerTest {
 
 	@Autowired
