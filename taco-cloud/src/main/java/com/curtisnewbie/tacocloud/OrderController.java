@@ -3,6 +3,8 @@ package com.curtisnewbie.tacocloud;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +23,24 @@ public class OrderController {
     private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
     private final OrderRepository orderRepo;
+    private final OrderProperties orderProperties;
 
-    public OrderController(OrderRepository orderRepo) {
+    public OrderController(OrderRepository orderRepo, OrderProperties orderProperties) {
         this.orderRepo = orderRepo;
+        this.orderProperties = orderProperties;
     }
 
     @GetMapping("/current")
     public String orderForm(Model model) {
         log.info("Navigating to orderForm.html");
         return "orderForm"; // go to orderForm.html template
+    }
+
+    @GetMapping("/history") // only the first 10 order histories
+    public String ordersHistory(@AuthenticationPrincipal User user, Model model) {
+        Pageable pageable = PageRequest.of(0, orderProperties.getPageSize());
+        model.addAttribute("orders", orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));
+        return "orderList"; // orderList.html
     }
 
     // @Valid, means using the declared annotations to validate a bean, and an Errors object is
