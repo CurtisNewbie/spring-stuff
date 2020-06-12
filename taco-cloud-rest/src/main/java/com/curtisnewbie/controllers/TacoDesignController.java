@@ -1,12 +1,17 @@
 package com.curtisnewbie.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.curtisnewbie.model.Taco;
 import com.curtisnewbie.model.TacoRepository;
-
+import com.curtisnewbie.model.TacoModel;
+import com.curtisnewbie.model.TacoModelAssembler;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.CollectionModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +32,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class TacoDesignController {
 
     private TacoRepository tacoRepo;
+    private TacoModelAssembler assembler;
 
-    public TacoDesignController(TacoRepository tacoRepo) {
+    public TacoDesignController(TacoRepository tacoRepo, TacoModelAssembler assembler) {
         this.tacoRepo = tacoRepo;
+        this.assembler = assembler;
     }
 
     @GetMapping("/recent")
-    public Iterable<Taco> recentTacos() {
+    public CollectionModel<TacoModel> recentTacos() {
         // TODO: fix range for pagination
         PageRequest page = PageRequest.of(0, 12, Sort.by("createdAt").descending());
-        return tacoRepo.findAll(page);
+        List<Taco> list = tacoRepo.findAll(page);
+        // use assembler to convert Taco to RepresentationModel
+        CollectionModel<TacoModel> models = assembler.toCollectionModel(list);
+        // in addition to the links for those Taco, add "recents" which is the link for this method
+        models.add(linkTo(methodOn(TacoDesignController.class).recentTacos()).withRel("recent"));
+        return models;
     }
 
     @GetMapping("/{id}")

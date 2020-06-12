@@ -3,8 +3,6 @@ package com.curtisnewbie.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
 @Entity
 public class Ingredient {
@@ -16,7 +14,6 @@ public class Ingredient {
     @NotNull
     private String name;
 
-    @JsonIgnore // TODO: Write a converter for it
     @NotNull
     private Type type;
 
@@ -29,7 +26,6 @@ public class Ingredient {
         this.type = t;
     }
 
-    @JsonIgnoreType
     public static enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUSE
     }
