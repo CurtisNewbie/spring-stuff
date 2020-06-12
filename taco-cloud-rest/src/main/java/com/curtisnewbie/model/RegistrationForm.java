@@ -1,7 +1,5 @@
 package com.curtisnewbie.model;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 /**
  * Objects that contain information of a user
  */
@@ -16,15 +14,8 @@ public class RegistrationForm {
     private String zip;
     private String phoneNumber;
 
-    /**
-     * Convert RegistrationForm to User, where the rawPassword is encoded to cipher
-     * text
-     * 
-     * @param encoder
-     * @return
-     */
-    public User toUser(PasswordEncoder encoder) {
-        return new User(username, encoder.encode(password), fullname, street, city, state, zip, phoneNumber);
+    public User toUser() {
+        return new User(username, password, fullname, street, city, state, zip, phoneNumber);
     }
 
     /**
