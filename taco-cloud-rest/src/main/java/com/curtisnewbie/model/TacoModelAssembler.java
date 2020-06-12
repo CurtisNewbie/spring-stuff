@@ -34,10 +34,14 @@ public class TacoModelAssembler extends RepresentationModelAssemblerSupport<Taco
     }
 
     public CollectionModel<TacoModel> toModels(Collection<Taco> tacos) {
+        return CollectionModel.of(toModelsList(tacos));
+    }
+
+    public List<TacoModel> toModelsList(Collection<Taco> tacos) {
         List<TacoModel> list = new ArrayList<>();
         tacos.forEach(taco -> {
             list.add(this.toModel(taco));
         });
-        return CollectionModel.of(list);
+        return list;
     }
 }

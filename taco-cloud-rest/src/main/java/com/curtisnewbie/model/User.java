@@ -17,13 +17,9 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-    // private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue
     private Long id;
-    private String username;
-    private String password;
     private String fullname;
     private String street;
     private String city;
@@ -44,10 +40,8 @@ public class User {
      * @param zip
      * @param phoneNumber
      */
-    public User(String username, String password, String fullname, String street, String city,
-            String state, String zip, String phoneNumber) {
-        this.username = username;
-        this.password = password;
+    public User(String fullname, String street, String city, String state, String zip,
+            String phoneNumber) {
         this.fullname = fullname;
         this.street = street;
         this.city = city;
@@ -105,19 +99,19 @@ public class User {
         this.id = id;
     }
 
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    // /**
+    // * @param username the username to set
+    // */
+    // public void setUsername(String username) {
+    // this.username = username;
+    // }
 
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    // /**
+    // * @param password the password to set
+    // */
+    // public void setPassword(String password) {
+    // this.password = password;
+    // }
 
     /**
      * @return the fullname
@@ -211,8 +205,20 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [city=" + city + ", fullname=" + fullname + ", password=" + password
-                + ", phoneNumber=" + phoneNumber + ", state=" + state + ", street=" + street
-                + ", username=" + username + ", zip=" + zip + "]";
+        return "User [city=" + city + ", fullname=" + fullname + ", id=" + id + ", phoneNumber="
+                + phoneNumber + ", state=" + state + ", street=" + street + ", zip=" + zip + "]";
     }
+
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see java.lang.Object#toString()
+    // */
+
+    // @Override
+    // public String toString() {
+    // return "User [city=" + city + ", fullname=" + fullname + ", password=" + password
+    // + ", phoneNumber=" + phoneNumber + ", state=" + state + ", street=" + street
+    // + ", username=" + username + ", zip=" + zip + "]";
+    // }
 }
