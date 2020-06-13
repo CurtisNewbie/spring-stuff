@@ -34,6 +34,10 @@ public class OrderController {
         this.orderModelAssembler = orderModelAssembler;
     }
 
+    public OrderModel createOrder(@RequestBody Order order) {
+        return orderModelAssembler.toModel(orderRepo.save(order));
+    }
+
     // PUT can be considered as replacement of data
     @PutMapping("/{orderId}")
     public OrderModel putOrder(@RequestBody Order order) {
