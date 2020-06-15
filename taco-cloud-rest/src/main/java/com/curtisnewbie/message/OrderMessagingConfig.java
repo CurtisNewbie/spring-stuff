@@ -20,7 +20,7 @@ public class OrderMessagingConfig {
 
     // this method specifies using MappingJackson2MessageConverter, the default is
     // SimpleMessageConverter
-    // @Bean
+    @Bean
     public MappingJackson2MessageConverter messageConverter() {
         MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
         messageConverter.setTypeIdPropertyName("_typeId"); // default is none, this property
