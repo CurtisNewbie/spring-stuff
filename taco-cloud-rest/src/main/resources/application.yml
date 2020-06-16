@@ -5,15 +5,16 @@
 # e.g., application-test.yml, application-prod.yml, etc.
 
 spring: #  configure RabbitMQ (AMQP)
-  rabbitmq: 
-    host: rabbit.tacocloud.com
-    port: 5673
-    username: tacoweb
-    password: 13tm31n
-    template: # configure default exchange and routing 
-      exchange: tacocloud.orders
-      routing-key: kitchens.central
-      receive-timeout: 30000 # block and wait for messaging for N ms
+  kafka:
+    bootstrap-servers: 
+    - kafka.tacocloud.com:9092
+    - kafka.tacocloud.com:9093
+    - kafka.tacocloud.com:9094
+    template:
+      default-topic: tacocloud.orders.topic
+    consumer:
+      group-id: tacocloud.orders.topic # not really know what this means :(
+
 ---
 
 # configuration for "prod" profile
